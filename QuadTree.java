@@ -8,4 +8,8 @@ public class QuadTree {
         Vector halfWorldSize = Vector.divide(worldSize, 2);
         rect = new Rect(halfWorldSize, worldSize);
     }
+    
+    public GreenfootImage getDebugImage() {
+        
+    }
 }
