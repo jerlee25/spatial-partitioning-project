@@ -1,3 +1,5 @@
+import javax.crypto.spec.GCMParameterSpec;
+
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
@@ -20,5 +22,12 @@ public class MyWorld extends World
     
     public QuadTree getQuadTree() {
         return quadTree;
+    }
+
+    public void act(){
+        // 0.5% chance to summon a new battler
+        if (Greenfoot.getRandomNumber(200)<1){
+            addObject(new Battler(Battler.Type.values()[Greenfoot.getRandomNumber(3)]), Greenfoot.getRandomNumber(600), Greenfoot.getRandomNumber(400));
+        }
     }
 }
