@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Bee extends Actor
 {
+    //let's see if this worked!
     /**
      * Act - do whatever the Bee wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
