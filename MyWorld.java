@@ -18,8 +18,9 @@ public class MyWorld extends World
     }
 
     public void act(){
-        if (Greenfoot.getRandomNumber(30)<1){
-            addObject(new Battler(Battler.Type.values()[Greenfoot.getRandomNumber(3)]), Greenfoot.getRandomNumber(400), Greenfoot.getRandomNumber(400));
+        // 0.5% chance to summon a new battler
+        if (Greenfoot.getRandomNumber(200)<1){
+            addObject(new Battler(Battler.Type.values()[Greenfoot.getRandomNumber(3)]), Greenfoot.getRandomNumber(600), Greenfoot.getRandomNumber(400));
         }
     }
 }

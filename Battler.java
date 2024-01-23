@@ -1,4 +1,5 @@
 import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class Battler here.
@@ -32,7 +33,7 @@ public class Battler extends Actor {
     public Battler(Type type) {
         // Set image based on type
         this.type = type;
-        GreenfootImage sprite;
+        GreenfootImage sprite = new GreenfootImage("rock.png");
         switch (type) {
             case ROCK:
                 sprite = new GreenfootImage("rock.png");
@@ -44,6 +45,8 @@ public class Battler extends Actor {
                 sprite = new GreenfootImage("scissors.png");
                 break;
         }
+        sprite.scale(50,50);
+        setImage(sprite);
     }
 
     private Battler locate(Type target) {
@@ -56,6 +59,14 @@ public class Battler extends Actor {
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() {
-        // Add your action code here.
+        // Die if intersecting with a winning battler
+        List<Battler> battlers = getIntersectingObjects(Battler.class);
+        for (Battler battler : battlers) {
+            if (target(battler.getType()) == getType()) {
+                getWorld().removeObject(this);
+                return;
+            }
+        }
+
     }
 }
