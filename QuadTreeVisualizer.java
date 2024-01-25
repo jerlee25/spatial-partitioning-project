@@ -6,15 +6,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class QuadTreeVisualizer extends Actor
-{
-    /**
-     * Act - do whatever the QuadTreeVisualizer wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
-    {
-        
-        QuadTr
+public class QuadTreeVisualizer extends Actor {
+    public void act() {
+        Greenfoot.runLat
+        QuadTree tree = getWorld().get
     }
 }

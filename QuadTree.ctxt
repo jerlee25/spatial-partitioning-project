@@ -2,4 +2,6 @@
 comment0.target=QuadTree
 comment1.params=world
 comment1.target=QuadTree(greenfoot.World)
-numComments=2
+comment2.params=
+comment2.target=Rect\ getRect()
+numComments=3

@@ -1,4 +1,5 @@
 import greenfoot.*;
+import java.util.*;
 
 public class QuadTree {
     private Rect rect;
@@ -9,7 +10,7 @@ public class QuadTree {
         rect = new Rect(halfWorldSize, worldSize);
     }
     
-    public GreenfootImage getDebugImage() {
-        
+    public Rect getRect() {
+        return rect;
     }
 }

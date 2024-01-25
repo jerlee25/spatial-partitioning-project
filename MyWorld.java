@@ -24,6 +24,9 @@ public class MyWorld extends World
         return quadTree;
     }
 
+    //update: the order in which act methods are called is very important.
+    //Unless there's an easier way, I think the world should have the only act method,
+    //and have it update everything in order
     public void act(){
         // 0.5% chance to summon a new battler
         if (Greenfoot.getRandomNumber(200)<1){
