@@ -7,8 +7,4 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version (a version number or a date)
  */
 public class QuadTreeVisualizer extends Actor {
-    public void act() {
-        Greenfoot.runLat
-        QuadTree tree = getWorld().get
-    }
 }
