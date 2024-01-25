@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=QuadTree
-comment1.params=world
-comment1.target=QuadTree(greenfoot.World)
+comment1.params=rect
+comment1.target=QuadTree(Rect)
 comment2.params=
 comment2.target=Rect\ getRect()
 numComments=3

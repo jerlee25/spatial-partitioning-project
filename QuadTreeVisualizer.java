@@ -1,10 +1,26 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 
-/**
- * Write a description of class QuadTreeVisualizer here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
+//created in the MyWorld class
 public class QuadTreeVisualizer extends Actor {
+    private QuadTree quadTree;
+    
+    public QuadTreeVisualizer(World world, QuadTree quadTree) {
+        this.quadTree = quadTree;
+        setImage(new GreenfootImage(world.getWidth(), world.getHeight()));
+    }
+
+    public void update() {
+        QuadTree quadTree = ((MyWorld)getWorld()).getQuadTree();
+        Rect rect = quadTree.getRect();
+
+        GreenfootImage image = getImage();
+        image.clear();
+        image.setColor(Color.BLUE);
+        
+        image.drawRect(rect.position.x, rect.position.y, 10, 10);
+        
+        setImage(image);
+    }
+    
+    
 }

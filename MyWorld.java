@@ -8,29 +8,41 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class MyWorld extends World
-{
+public class MyWorld extends World {
+    private QuadTreeVisualizer quadTreeVisualizer;
     private QuadTree quadTree;
-    
-    //Note: please make sure world is odd x odd size because i don't wanna fix the bug
+
     public MyWorld()
-    {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
+    {
+        //for accuracy, make sure this is odd x odd
         super(601, 401, 1);
-        quadTree = new QuadTree(this);
+        
+        //quadTree setup
+        quadTree = new QuadTree(new Rect(new Vector(0, 0), new Vector(getWidth(), getHeight())));
+        quadTreeVisualizer = new QuadTreeVisualizer(this, quadTree);
+        addObject(quadTreeVisualizer, 0, 0);
     }
     
     public QuadTree getQuadTree() {
         return quadTree;
     }
 
-    //update: the order in which act methods are called is very important.
+    //update: the order in which act methods are called is very important in this project.
     //Unless there's an easier way, I think the world should have the only act method,
     //and have it update everything in order
+    //this should be the only act() method in the project, and will call update() on all actors
     public void act(){
         // 0.5% chance to summon a new battler
         if (Greenfoot.getRandomNumber(200)<1){
             addObject(new Battler(Battler.Type.values()[Greenfoot.getRandomNumber(3)]), Greenfoot.getRandomNumber(600), Greenfoot.getRandomNumber(400));
         }
+        
+        //game loop:
+        //quadTree is cleared
+        //battlers add themselves to the quad tree and calculate movement
+        //battlers act
+        //quadtree visual is updated
+        
+        quadTreeVisualizer.update();
     }
 }
