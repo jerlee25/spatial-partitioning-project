@@ -9,7 +9,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version (a version number or a date)
  */
 public class MyWorld extends World {
-    private QuadTreeVisualizer quadTreeVisualizer;
     private QuadTree quadTree;
 
     public MyWorld()
@@ -18,9 +17,7 @@ public class MyWorld extends World {
         super(601, 401, 1);
         
         //quadTree setup
-        quadTree = new QuadTree(new Rect(new Vector(0, 0), new Vector(getWidth(), getHeight())));
-        quadTreeVisualizer = new QuadTreeVisualizer(this, quadTree);
-        addObject(quadTreeVisualizer, 0, 0);
+        Vector size = new Vector(getWidth(), getHeight());
     }
     
     public QuadTree getQuadTree() {
@@ -42,7 +39,5 @@ public class MyWorld extends World {
         //battlers add themselves to the quad tree and calculate movement
         //battlers act
         //quadtree visual is updated
-        
-        quadTreeVisualizer.update();
     }
 }

@@ -1,7 +1,0 @@
-#BlueJ class context
-comment0.target=QuadTreeVisualizer
-comment1.params=world\ quadTree
-comment1.target=QuadTreeVisualizer(greenfoot.World,\ QuadTree)
-comment2.params=
-comment2.target=void\ update()
-numComments=3

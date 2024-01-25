@@ -6,4 +6,8 @@ public class Rect {
         this.position = position;
         this.size = size;
     }
+    
+    public Vector getBottomLeft() {
+        return Vector.subtract(position, Vector.divide(size, 2));
+    }
 }
