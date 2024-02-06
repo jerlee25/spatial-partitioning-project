@@ -9,21 +9,21 @@ import java.util.List;
  */
 public class Battler extends Actor {
     static enum Type {
-        ROCK, PAPER, SCISSORS
+        GREEN, RED, BLUE
     };
 
     private Type type;
 
     public static Type target(Type type) {
         switch (type) {
-            case ROCK:
-                return Type.SCISSORS;
-            case PAPER:
-                return Type.ROCK;
-            case SCISSORS:
-                return Type.PAPER;
+            case GREEN:
+                return Type.BLUE;
+            case RED:
+                return Type.GREEN;
+            case BLUE:
+                return Type.RED;
         }
-        return Type.PAPER;
+        return Type.RED;
     }
 
     public Type getType() {
@@ -33,19 +33,19 @@ public class Battler extends Actor {
     public Battler(Type type) {
         // Set image based on type
         this.type = type;
-        GreenfootImage sprite = new GreenfootImage("rock.png");
+        GreenfootImage sprite = new GreenfootImage("green.png");
         switch (type) {
-            case ROCK:
-                sprite = new GreenfootImage("rock.png");
+            case GREEN:
+                sprite = new GreenfootImage("green.png");
                 break;
-            case PAPER:
-                sprite = new GreenfootImage("paper.jpg");
+            case RED:
+                sprite = new GreenfootImage("red.jpg");
                 break;
-            case SCISSORS:
-                sprite = new GreenfootImage("scissors.png");
+            case BLUE:
+                sprite = new GreenfootImage("blue.png");
                 break;
         }
-        sprite.scale(50,50);
+        sprite.scale(3,3);
         setImage(sprite);
     }
 
