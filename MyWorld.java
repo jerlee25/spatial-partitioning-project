@@ -17,6 +17,14 @@ public class MyWorld extends World {
 
         // quadTree setup
         Vector size = new Vector(getWidth(), getHeight());
+        
+        // intializing battlers
+        
+        for (int i=0;i<300;i++){
+        
+            addObject(new Battler(Battler.Type.values()[Greenfoot.getRandomNumber(3)]), Greenfoot.getRandomNumber(600),
+                Greenfoot.getRandomNumber(400));
+        }
     }
 
     public QuadTree getQuadTree() {
@@ -32,8 +40,8 @@ public class MyWorld extends World {
     // on all actors
     public void act() {
         // 10% chance to summon a new battler
-        addObject(new Battler(Battler.Type.values()[Greenfoot.getRandomNumber(3)]), Greenfoot.getRandomNumber(600),
-                Greenfoot.getRandomNumber(400));
+        // addObject(new Battler(Battler.Type.values()[Greenfoot.getRandomNumber(3)]), Greenfoot.getRandomNumber(600),
+                //Greenfoot.getRandomNumber(400));
 
         // game loop:
         // quadTree is cleared

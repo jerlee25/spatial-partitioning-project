@@ -1,5 +1,5 @@
 import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.util.List;
+import java.util.*;
 
 /**
  * Write a description of class Battler here.
@@ -29,6 +29,10 @@ public class Battler extends Actor {
     public Type getType() {
         return type;
     }
+    
+    public Type getTarget() {
+        return target(getType());
+    }
 
     public Battler(Type type) {
         // Set image based on type
@@ -48,10 +52,46 @@ public class Battler extends Actor {
         sprite.scale(3,3);
         setImage(sprite);
     }
-
+    private void changeType(Type type){
+        this.type = type;
+        GreenfootImage sprite = new GreenfootImage("green.png");
+        switch (type) {
+            case GREEN:
+                sprite = new GreenfootImage("green.png");
+                break;
+            case RED:
+                sprite = new GreenfootImage("red.jpg");
+                break;
+            case BLUE:
+                sprite = new GreenfootImage("blue.png");
+                break;
+        }
+        sprite.scale(3,3);
+        setImage(sprite);
+    }
+    
+    private List<Battler> locateNearBattlers(){
+        // CHANGE ONCE GRID WORKS TO USE SPATIAL PARTITIONS
+        List <Battler> nearBattlers = new ArrayList<Battler>();
+        nearBattlers = getNeighbours(50,true,Battler.class);
+        return nearBattlers;
+    
+    }
+    
+    private double getDist(Actor o){
+        return Math.sqrt(Math.pow(getX() - o.getX(),2)+Math.pow(getY() - o.getY(),2));
+    }
+    
     private Battler locate(Type target) {
-        // Find nearest battler of target
-        return null;
+        List<Battler> nearBattlers = locateNearBattlers();
+        Battler closestBattler = null;
+        double closestDist = 1000000;
+        for (Battler nearBattler:nearBattlers){
+            if (target == nearBattler.getType() && getDist(nearBattler) < closestDist){
+                closestBattler = nearBattler;
+            }
+        }
+        return closestBattler;
     }
 
     /**
@@ -63,10 +103,29 @@ public class Battler extends Actor {
         List<Battler> battlers = getIntersectingObjects(Battler.class);
         for (Battler battler : battlers) {
             if (target(battler.getType()) == getType()) {
-                getWorld().removeObject(this);
-                return;
+                changeType(battler.getType());
+                
             }
         }
+        
+        if (getX() <= 15 || getY() <=15 || getX() >= getWorld().getWidth()-15 || getY() >=getWorld().getHeight()-15  ){
+            turn(80);
+        
+        }
+        Battler closestTarget = locate(getTarget());
+        if (closestTarget!=null){
+             turnTowards(closestTarget.getX(),closestTarget.getY());
+        }
+        else{
+            turn(10-Greenfoot.getRandomNumber(20));
+        
+        }
+        
+        
+        
+        move(5 + Greenfoot.getRandomNumber(5));
+        
+       
 
     }
 }
