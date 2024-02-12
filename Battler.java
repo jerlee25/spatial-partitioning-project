@@ -49,7 +49,7 @@ public class Battler extends Actor {
                 sprite = new GreenfootImage("blue.png");
                 break;
         }
-        sprite.scale(3,3);
+        sprite.scale(5,5);
         setImage(sprite);
     }
     private void changeType(Type type){
@@ -66,7 +66,7 @@ public class Battler extends Actor {
                 sprite = new GreenfootImage("blue.png");
                 break;
         }
-        sprite.scale(3,3);
+        sprite.scale(5,5);
         setImage(sprite);
     }
     

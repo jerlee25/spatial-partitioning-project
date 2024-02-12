@@ -39,10 +39,34 @@ public class MyWorld extends World {
     // this should be the only act() method in the project, and will call update()
     // on all actors
     public void act() {
+        // Player spawning new battlers
+        
+        if (Greenfoot.isKeyDown("1")){
+             for (int i=0;i<30;i++){
+        
+                addObject(new Battler(Battler.Type.RED), Greenfoot.getRandomNumber(600),
+                    Greenfoot.getRandomNumber(400));
+            }
+        }
+         if (Greenfoot.isKeyDown("2")){
+             for (int i=0;i<30;i++){
+        
+                addObject(new Battler(Battler.Type.GREEN), Greenfoot.getRandomNumber(600),
+                    Greenfoot.getRandomNumber(400));
+            }
+        }
+         if (Greenfoot.isKeyDown("3")){
+             for (int i=0;i<30;i++){
+        
+                addObject(new Battler(Battler.Type.BLUE), Greenfoot.getRandomNumber(600),
+                    Greenfoot.getRandomNumber(400));
+            }
+        }
+        
         // 10% chance to summon a new battler
         // addObject(new Battler(Battler.Type.values()[Greenfoot.getRandomNumber(3)]), Greenfoot.getRandomNumber(600),
-                //Greenfoot.getRandomNumber(400));
-
+                //Greenfoot.getRandomNumber(400));       
+                
         // game loop:
         // quadTree is cleared
         // battlers add themselves to the quad tree and calculate movement
