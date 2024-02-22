@@ -1,3 +1,13 @@
 #BlueJ class context
 comment0.target=Partitioner
-numComments=1
+comment1.params=world
+comment1.target=Partitioner(MyWorld)
+comment2.params=
+comment2.target=void\ clear()
+comment3.params=battler
+comment3.target=void\ addBattler(Battler)
+comment4.params=x\ y\ radius
+comment4.target=java.util.List\ query(int,\ int,\ int)
+comment5.params=worldCoord\ worldSize\ gridSize
+comment5.target=int\ worldToGrid(int,\ int,\ int)
+numComments=6

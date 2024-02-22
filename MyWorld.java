@@ -16,7 +16,7 @@ public class MyWorld extends World {
         super(601, 401, 1);
 
         // quadTree setup
-        Partitioner = new Partitioner(this);
+        partitioner = new Partitioner(this);
         
         // intializing battlers
         for (int i=0;i<300;i++){
@@ -68,8 +68,9 @@ public class MyWorld extends World {
                 
         // game loop:
         // quadTree is cleared
-        // battlers add themselves to the quad tree and calculate movement
-        // battlers act
+        // battlers add themselves to the quad tree
+        // battlers act() and calculate their movement
+        // battlers move
         // quadtree visual is updated
     }
 }
