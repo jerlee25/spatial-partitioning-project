@@ -9,17 +9,16 @@ import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version (a version number or a date)
  */
 public class MyWorld extends World {
-    private QuadTree quadTree;
+    private Partitioner partitioner;
 
     public MyWorld() {
         // for accuracy, make sure this is odd x odd
         super(601, 401, 1);
 
         // quadTree setup
-        Vector size = new Vector(getWidth(), getHeight());
+        Partitioner = new Partitioner(this);
         
         // intializing battlers
-        
         for (int i=0;i<300;i++){
         
             addObject(new Battler(Battler.Type.values()[Greenfoot.getRandomNumber(3)]), Greenfoot.getRandomNumber(600),
@@ -27,8 +26,8 @@ public class MyWorld extends World {
         }
     }
 
-    public QuadTree getQuadTree() {
-        return quadTree;
+    public Partitioner getPartitioner() {
+        return partitioner;
     }
 
     // update: the order in which act methods are called is very important in this

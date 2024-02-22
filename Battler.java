@@ -95,8 +95,9 @@ public class Battler extends Actor {
     }
 
     /**
-     * Act - do whatever the Battler wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * The spacial partitioning won't work if this is act()...
+     * it needs to be a method that's called manually by the world on all battlers
+     * otherwise, this may be out of sync with the spacial partitioning
      */
     public void act() {
         // Die if intersecting with a winning battler

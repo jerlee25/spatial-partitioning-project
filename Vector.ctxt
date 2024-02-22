@@ -1,9 +1,0 @@
-#BlueJ class context
-comment0.target=Vector
-comment1.params=x\ y
-comment1.target=Vector(int,\ int)
-comment2.params=v\ f
-comment2.target=Vector\ divide(Vector,\ int)
-comment3.params=v1\ v2
-comment3.target=Vector\ subtract(Vector,\ Vector)
-numComments=4
