@@ -99,7 +99,7 @@ public class Battler extends Actor {
      * it needs to be a method that's called manually by the world on all battlers
      * otherwise, this may be out of sync with the spacial partitioning
      */
-    public void act() {
+    public void update() {
         // Die if intersecting with a winning battler
         List<Battler> battlers = getIntersectingObjects(Battler.class);
         for (Battler battler : battlers) {

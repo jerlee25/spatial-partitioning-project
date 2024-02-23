@@ -35,7 +35,6 @@ public class MyWorld extends World {
                 Battler battler = new Battler(Battler.Type.RED);
                 addObject(battler, Greenfoot.getRandomNumber(600), Greenfoot.getRandomNumber(400));
                 battlers.add(battler);
-                System.out.println("E");
             }
         }
          if (Greenfoot.isKeyDown("2")){
@@ -52,8 +51,10 @@ public class MyWorld extends World {
                 battlers.add(battler);
             }
         }
-/*
+
         // partitioner is cleared
+        
+                
         partitioner.clear();
 
         // battlers are added to the partitioner
@@ -63,11 +64,13 @@ public class MyWorld extends World {
         
         // battlers are updated
         for (Battler battler : battlers) {
-            //battler.update();
+            battler.update();
         }
+   /*     
+
 
         // partitioner visual is updated
         partitioner.drawGridVisual();
-*/
+        */
     }
 }

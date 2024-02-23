@@ -18,6 +18,6 @@ comment7.target=double\ getDist(greenfoot.Actor)
 comment8.params=target
 comment8.target=Battler\ locate(Battler.Type)
 comment9.params=
-comment9.target=void\ act()
+comment9.target=void\ update()
 comment9.text=\r\n\ The\ spacial\ partitioning\ won't\ work\ if\ this\ is\ act()...\r\n\ it\ needs\ to\ be\ a\ method\ that's\ called\ manually\ by\ the\ world\ on\ all\ battlers\r\n\ otherwise,\ this\ may\ be\ out\ of\ sync\ with\ the\ spacial\ partitioning\r\n
 numComments=10
