@@ -28,7 +28,7 @@ public class Partitioner {
         grid[x][y].add(battler);
     }
     
-    public List<Battler> query(Battler sourceBattler, int radius) {
+    public List<Battler> query(Battler sourceBattler, int radius, Battler.Type type) {
         int worldX = sourceBattler.getX();
         int worldY = sourceBattler.getY();
         
@@ -44,6 +44,7 @@ public class Partitioner {
                 if (!isOnGrid(x, gridWidth) || !isOnGrid(y, gridHeight)) continue;
                 
                 for (Battler battler : grid[x][y]) {
+                    if (battler.getType() != type) continue;
                     if (battler == sourceBattler) continue;
                     
                     int sqrDistance = sqrDistance(battler, sourceBattler);

@@ -6,6 +6,10 @@ public class MyWorld extends World {
     private Partitioner partitioner;
     private List<Battler> battlers;
 
+    public GreenfootImage red;
+    public GreenfootImage green;
+    public GreenfootImage blue;
+
     public MyWorld() {
         // for accuracy, make sure this is odd x odd
         super(601, 401, 1);
@@ -21,6 +25,12 @@ public class MyWorld extends World {
             addObject(battler, Greenfoot.getRandomNumber(600), Greenfoot.getRandomNumber(400));
             battlers.add(battler);
         }
+
+        // set up sprites
+        red = new GreenfootImage("red.png").scale(5,5);
+        green = new GreenfootImage("green.png").scale(5,5);
+        blue = new GreenfootImage("blue.png").scale(5,5);
+
     }
 
     public Partitioner getPartitioner() {

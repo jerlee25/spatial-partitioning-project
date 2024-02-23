@@ -29,65 +29,48 @@ public class Battler extends Actor {
     public Type getType() {
         return type;
     }
-    
+
     public Type getTarget() {
         return target(getType());
     }
 
     public Battler(Type type) {
-        // Set image based on type
+        changeType(type);
+
+    }
+
+    public void changeType(Type type) {
         this.type = type;
-        GreenfootImage sprite = new GreenfootImage("green.png");
         switch (type) {
             case GREEN:
-                sprite = new GreenfootImage("green.png");
+                setImage(getWorld().green);
                 break;
             case RED:
-                sprite = new GreenfootImage("red.jpg");
+                setImage(getWorld().red);
                 break;
             case BLUE:
-                sprite = new GreenfootImage("blue.png");
+                setImage(getWorld().blue);
                 break;
         }
-        sprite.scale(5,5);
-        setImage(sprite);
+
     }
-    private void changeType(Type type){
-        this.type = type;
-        GreenfootImage sprite = new GreenfootImage("green.png");
-        switch (type) {
-            case GREEN:
-                sprite = new GreenfootImage("green.png");
-                break;
-            case RED:
-                sprite = new GreenfootImage("red.jpg");
-                break;
-            case BLUE:
-                sprite = new GreenfootImage("blue.png");
-                break;
-        }
-        sprite.scale(5,5);
-        setImage(sprite);
+
+    private List<Battler> locateNearBattlers(int r) {
+        return getWorld().parttioner.query(this, r, getTarget());
+
     }
-    
-    private List<Battler> locateNearBattlers(){
-        // CHANGE ONCE GRID WORKS TO USE SPATIAL PARTITIONS
-        List <Battler> nearBattlers = new ArrayList<Battler>();
-        nearBattlers = getNeighbours(50,true,Battler.class);
-        return nearBattlers;
-    
+
+    private double getDist(Actor o) {
+        return Math.sqrt(Math.pow(getX() - o.getX(), 2) + Math.pow(getY() - o.getY(), 2));
     }
-    
-    private double getDist(Actor o){
-        return Math.sqrt(Math.pow(getX() - o.getX(),2)+Math.pow(getY() - o.getY(),2));
-    }
-    
+
     private Battler locate(Type target) {
-        List<Battler> nearBattlers = locateNearBattlers();
+        List<Battler> nearBattlers = locateNearBattlers(5);
+        if (nearBattlers.size() == 0) {   nearBattlers = locateNearBattlers(40); }   }
         Battler closestBattler = null;
         double closestDist = 1000000;
-        for (Battler nearBattler:nearBattlers){
-            if (target == nearBattler.getType() && getDist(nearBattler) < closestDist){
+        for (Battler nearBattler : nearBattlers) {
+            if (target == nearBattler.getType() && getDist(nearBattler) < closestDist) {
                 closestBattler = nearBattler;
             }
         }
@@ -101,32 +84,25 @@ public class Battler extends Actor {
      */
     public void update() {
         // Die if intersecting with a winning battler
-        List<Battler> battlers = getIntersectingObjects(Battler.class);
-        for (Battler battler : battlers) {
-            if (target(battler.getType()) == getType()) {
-                changeType(battler.getType());
-                
-            }
+        List<Battler> battlers = getWorld().partitioner.query(this, 5, target(getTarget()));
+        if (battlers.size() > 0) {
+            changeType(target(getTarget()));
         }
-        
-        if (getX() <= 15 || getY() <=15 || getX() >= getWorld().getWidth()-15 || getY() >=getWorld().getHeight()-15  ){
+
+        if (getX() <= 15 || getY() <= 15 || getX() >= getWorld().getWidth() - 15
+                || getY() >= getWorld().getHeight() - 15) {
             turn(80);
-        
+
         }
         Battler closestTarget = locate(getTarget());
-        if (closestTarget!=null){
-             turnTowards(closestTarget.getX(),closestTarget.getY());
+        if (closestTarget != null) {
+            turnTowards(closestTarget.getX(), closestTarget.getY());
+        } else {
+            turn(10 - Greenfoot.getRandomNumber(20));
+
         }
-        else{
-            turn(10-Greenfoot.getRandomNumber(20));
-        
-        }
-        
-        
-        
+
         move(5 + Greenfoot.getRandomNumber(5));
-        
-       
 
     }
 }
