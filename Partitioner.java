@@ -5,13 +5,11 @@ public class Partitioner {
     public static final int gridWidth = 20;
     public static final int gridHeight = 20;
     
-    private int worldWidth;
-    private int worldHeight;
+    private MyWorld world;
     private List<Battler>[][] grid;
     
     public Partitioner(MyWorld world) {
-        worldWidth = world.getWidth();
-        worldHeight = world.getHeight();
+        this.world = world;
         grid = new ArrayList[gridWidth][gridHeight];
         clear();
     }
@@ -25,18 +23,19 @@ public class Partitioner {
     }
     
     public void addBattler(Battler battler) {
-        int x = worldToGrid(battler.getX(), worldWidth, gridWidth);    
-        int y = worldToGrid(battler.getY(), worldHeight, gridHeight);
+        int x = worldToGrid(battler.getX(), world.getWidth(), gridWidth);    
+        int y = worldToGrid(battler.getY(), world.getHeight(), gridHeight);
+        grid[x][y].add(battler);
     }
     
     public List<Battler> query(Battler sourceBattler, int radius) {
         int worldX = sourceBattler.getX();
         int worldY = sourceBattler.getY();
         
-        int gridXMin = worldToGrid(worldX - radius, worldWidth, gridWidth);
-        int gridYMin = worldToGrid(worldY - radius, worldHeight, gridHeight);
-        int gridXMax = worldToGrid(worldX + radius, worldWidth, gridWidth);
-        int gridYMax = worldToGrid(worldY + radius, worldHeight, gridHeight);
+        int gridXMin = worldToGrid(worldX - radius, world.getWidth(), gridWidth);
+        int gridYMin = worldToGrid(worldY - radius, world.getHeight(), gridHeight);
+        int gridXMax = worldToGrid(worldX + radius, world.getWidth(), gridWidth);
+        int gridYMax = worldToGrid(worldY + radius, world.getHeight(), gridHeight);
         
         List<Battler> battlers = new ArrayList<>();
         
@@ -73,6 +72,15 @@ public class Partitioner {
     //converts a world position to a grid position
     private int worldToGrid(int worldCoord, int worldSize, int gridSize) {
         int cellSize = worldSize / gridSize;
-        return (worldCoord / cellSize);
+        int gridCoord = worldCoord / cellSize;
+        
+        if (gridCoord < 0) gridCoord = 0;
+        if (gridCoord >= gridSize) gridCoord = gridSize - 1;
+        
+        return gridCoord;
+    }
+    
+    public void drawGridVisual() {
+        world.getBackground().clear();
     }
 }

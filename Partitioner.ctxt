@@ -14,4 +14,6 @@ comment6.params=gridCoord\ gridSize
 comment6.target=java.lang.Boolean\ isOnGrid(int,\ int)
 comment7.params=worldCoord\ worldSize\ gridSize
 comment7.target=int\ worldToGrid(int,\ int,\ int)
-numComments=8
+comment8.params=
+comment8.target=void\ drawGridVisual()
+numComments=9
