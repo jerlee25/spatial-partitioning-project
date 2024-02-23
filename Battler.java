@@ -65,12 +65,14 @@ public class Battler extends Actor {
     }
 
     private Battler locate(Type target) {
-        List<Battler> nearBattlers = locateNearBattlers(5);
-        if (nearBattlers.size() == 0) {   nearBattlers = locateNearBattlers(40); }   }
+        List<Battler> nearBattlers = locateNearBattlers(10); // since battlers are often clustered, we don't need to check that far
+        // and the targeting doesn't matter much at that point since they're almost overlapping anyway, so just return the first
+        if (nearBattlers.size() != 0) {   return nearBattlers[0];   }
+        nearBattlers = locateNearBattlers(50); // otherwise check beyond for the nearest
         Battler closestBattler = null;
         double closestDist = 1000000;
         for (Battler nearBattler : nearBattlers) {
-            if (target == nearBattler.getType() && getDist(nearBattler) < closestDist) {
+            if (getDist(nearBattler) < closestDist) {
                 closestBattler = nearBattler;
             }
         }
