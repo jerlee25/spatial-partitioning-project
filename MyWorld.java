@@ -1,15 +1,10 @@
-import javax.crypto.spec.GCMParameterSpec;
+import java.util.*;
 
 import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-/**
- * Write a description of class MyWorld here.
- * 
- * @author (your name)
- * @version (a version number or a date)
- */
 public class MyWorld extends World {
     private Partitioner partitioner;
+    private List<Battler> battlers;
 
     public MyWorld() {
         // for accuracy, make sure this is odd x odd
@@ -19,10 +14,12 @@ public class MyWorld extends World {
         partitioner = new Partitioner(this);
         
         // intializing battlers
-        for (int i=0;i<300;i++){
+        for (int i=0;i<300;i++) {
+            Battler battler = new Battler(Battler.Type.values()[Greenfoot.getRandomNumber(3)]), Greenfoot.getRandomNumber(600),
+                Greenfoot.getRandomNumber(400);
         
-            addObject(new Battler(Battler.Type.values()[Greenfoot.getRandomNumber(3)]), Greenfoot.getRandomNumber(600),
-                Greenfoot.getRandomNumber(400));
+            addObject(battler);
+            battlers.add(battler);
         }
     }
 
@@ -42,23 +39,29 @@ public class MyWorld extends World {
         
         if (Greenfoot.isKeyDown("1")){
              for (int i=0;i<30;i++){
+                 Battler battler = new Battler(Battler.Type.RED), Greenfoot.getRandomNumber(600),
+                    Greenfoot.getRandomNumber(400);
         
-                addObject(new Battler(Battler.Type.RED), Greenfoot.getRandomNumber(600),
-                    Greenfoot.getRandomNumber(400));
+                addObject(battler);
+                battlers.add(battler);
             }
         }
          if (Greenfoot.isKeyDown("2")){
              for (int i=0;i<30;i++){
-        
-                addObject(new Battler(Battler.Type.GREEN), Greenfoot.getRandomNumber(600),
-                    Greenfoot.getRandomNumber(400));
+                Battler battler = new Battler(Battler.Type.GREEN), Greenfoot.getRandomNumber(600),
+                    Greenfoot.getRandomNumber(400);
+                    
+                addObject(battler);
+                battlers.add(battler);
             }
         }
          if (Greenfoot.isKeyDown("3")){
              for (int i=0;i<30;i++){
-        
-                addObject(new Battler(Battler.Type.BLUE), Greenfoot.getRandomNumber(600),
-                    Greenfoot.getRandomNumber(400));
+                Battler battler = new Battler(Battler.Type.BLUE), Greenfoot.getRandomNumber(600),
+                    Greenfoot.getRandomNumber(400);
+                    
+                addObject(battler);
+                battlers.add(battler);
             }
         }
         
