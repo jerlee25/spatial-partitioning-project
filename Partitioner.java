@@ -1,5 +1,4 @@
 import java.util.*;
-import greenfoot.*;
 
 //Grid-based spatial partitioning
 public class Partitioner {
@@ -13,10 +12,6 @@ public class Partitioner {
         this.world = world;
         grid = new ArrayList[gridWidth][gridHeight];
         clear();
-        
-        if (MyWorld.usePartitioning) {
-            drawGridVisual();
-        }
     }
 
     public void clear() { 
@@ -33,7 +28,7 @@ public class Partitioner {
         grid[x][y].add(battler);
     }
     
-    public List<Battler> query(Battler sourceBattler, int radius) {
+    public List<Battler> query(Battler sourceBattler, int radius, Battler.Type type) {
         int worldX = sourceBattler.getX();
         int worldY = sourceBattler.getY();
         
@@ -43,18 +38,18 @@ public class Partitioner {
         int gridYMax = worldToGrid(worldY + radius, world.getHeight(), gridHeight);
         
         List<Battler> battlers = new ArrayList<>();
-        float sqrRadius = radius * radius;
         
         for (int x = gridXMin; x <= gridXMax; x++) {
             for (int y = gridYMin; y <= gridYMax; y++) {
                 if (!isOnGrid(x, gridWidth) || !isOnGrid(y, gridHeight)) continue;
                 
                 for (Battler battler : grid[x][y]) {
-                    if (battler.getType() != sourceBattler.getTarget()) continue;
+                    if (battler.getType() != type) continue;
+                    if (battler == sourceBattler) continue;
                     
                     int sqrDistance = sqrDistance(battler, sourceBattler);
                     
-                    if (sqrDistance <= sqrRadius) {
+                    if (sqrDistance <= radius * radius) {
                         battlers.add(battler);
                     }
                 }
@@ -86,20 +81,7 @@ public class Partitioner {
         return gridCoord;
     }
     
-
     public void drawGridVisual() {
-        GreenfootImage background = world.getBackground();
-        background.setColor(Color.BLACK);
-        
-        int cellSizeX = world.getWidth() / gridWidth;
-        int cellSizeY = world.getHeight() / gridHeight;
-        
-        for (int x = 0; x < world.getWidth(); x += cellSizeX) {
-            background.drawLine(x, 0, x, world.getHeight());
-        }
-        
-        for (int y = 0; y < world.getHeight(); y += cellSizeY) {
-            background.drawLine(0, y, world.getWidth(), y);
-        }
+        world.getBackground().clear();
     }
 }

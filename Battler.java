@@ -13,7 +13,10 @@ public class Battler extends Actor {
     };
 
     private Type type;
-    private int visionRadius = 50;
+
+    private MyWorld myWorld() {
+        return (MyWorld) getWorld();
+    }
 
     public static Type target(Type type) {
         switch (type) {
@@ -30,68 +33,61 @@ public class Battler extends Actor {
     public Type getType() {
         return type;
     }
-    
+
     public Type getTarget() {
         return target(getType());
     }
 
     public Battler(Type type) {
-        // Set image based on type
         this.type = type;
-        GreenfootImage sprite = new GreenfootImage("green.png");
+
+    }
+
+    protected void addedToWorld(World world) {
+        changeType(type);
+    }
+
+    public void changeType(Type type) {
+        this.type = type;
         switch (type) {
             case GREEN:
-                sprite = new GreenfootImage("green.png");
+                setImage(myWorld().green);
                 break;
             case RED:
-                sprite = new GreenfootImage("red.jpg");
+                setImage(myWorld().red);
                 break;
             case BLUE:
-                sprite = new GreenfootImage("blue.png");
+                setImage(myWorld().blue);
                 break;
-        }
-        sprite.scale(5,5);
-        setImage(sprite);
-    }
-    private void changeType(Type type){
-        this.type = type;
-        GreenfootImage sprite = new GreenfootImage("green.png");
-        switch (type) {
-            case GREEN:
-                sprite = new GreenfootImage("green.png");
-                break;
-            case RED:
-                sprite = new GreenfootImage("red.jpg");
-                break;
-            case BLUE:
-                sprite = new GreenfootImage("blue.png");
-                break;
-        }
-        sprite.scale(5,5);
-        setImage(sprite);
-    }
-    
-    private List<Battler> locateNearBattlers() {
-        if (MyWorld.usePartitioning) {
-            List<Battler> nearBattlers = ((MyWorld)getWorld()).getPartitioner().query(this, visionRadius);
-            return nearBattlers;
         }
 
-        List <Battler> nearBattlers = new ArrayList<Battler>();
-        nearBattlers = getNeighbours(50,true,Battler.class);
-        return nearBattlers;
     }
-    
-    private double getDist(Actor o){
-        return Math.sqrt(Math.pow(getX() - o.getX(),2)+Math.pow(getY() - o.getY(),2));
+
+    private List<Battler> locateNearBattlers(int r) {
+        return myWorld().getPartitioner().query(this, r, getTarget());
+
     }
-    
+
+    private double getDist(Actor o) {
+        return Math.sqrt(Math.pow(getX() - o.getX(), 2) + Math.pow(getY() - o.getY(), 2));
+    }
+
     private Battler locate(Type target) {
-        List<Battler> nearBattlers = locateNearBattlers();
+        // since battlers are often clustered, we often won't
+        // need to check the whole radius. also here we can just
+        // have the battler target a random one
+        List<Battler> nearBattlers = locateNearBattlers(10); 
+        if (nearBattlers.size() != 0) {
+            return nearBattlers.get(Greenfoot.getRandomNumber(nearBattlers.size()));
+
+        }
+
+        // check full range
+        nearBattlers = locateNearBattlers(50);
         Battler closestBattler = null;
         double closestDist = 1000000;
-        for (Battler nearBattler:nearBattlers){
-            if (target == nearBattler.getType() && getDist(nearBattler) < closestDist){
+        for (Battler nearBattler : nearBattlers) {
+            if (getDist(nearBattler) < closestDist) {
                 closestBattler = nearBattler;
             }
         }
@@ -105,32 +101,30 @@ public class Battler extends Actor {
      */
     public void update() {
         // Die if intersecting with a winning battler
-        List<Battler> battlers = getIntersectingObjects(Battler.class);
-        for (Battler battler : battlers) {
-            if (target(battler.getType()) == getType()) {
-                changeType(battler.getType());
-                
-            }
+        List<Battler> battlers = myWorld().getPartitioner().query(this, 3, target(getTarget()));
+        if (battlers.size() > 0) {
+            changeType(target(getTarget()));
         }
-        
-        if (getX() <= 15 || getY() <=15 || getX() >= getWorld().getWidth()-15 || getY() >=getWorld().getHeight()-15  ){
-            turn(80);
-        
-        }
+
         Battler closestTarget = locate(getTarget());
-        if (closestTarget!=null){
-             turnTowards(closestTarget.getX(),closestTarget.getY());
+        if (closestTarget != null) {
+            turnTowards(closestTarget.getX(), closestTarget.getY());
         }
-        else{
-            turn(10-Greenfoot.getRandomNumber(20));
-        
-        }
-        
-        
-        
+
+        // Introduce some randomness
+        turn(20 - Greenfoot.getRandomNumber(40));
+
+        // Move away from edge
+        if (getX() <= 15)
+            setRotation(0);
+        if (getY() <= 15)
+            setRotation(90);
+        if (getX() >= getWorld().getWidth() - 15)
+            setRotation(180);
+        if (getY() >= getWorld().getHeight() - 15)
+            setRotation(270);
+
         move(5 + Greenfoot.getRandomNumber(5));
-        
-       
 
     }
 }
