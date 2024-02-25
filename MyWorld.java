@@ -5,6 +5,7 @@ import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MyWorld extends World {
     private Partitioner partitioner;
     private List<Battler> battlers;
+    public static final boolean usePartitioning = true;
 
     public MyWorld() {
         // for accuracy, make sure this is odd x odd
@@ -51,26 +52,20 @@ public class MyWorld extends World {
                 battlers.add(battler);
             }
         }
-
-        // partitioner is cleared
         
-                
-        partitioner.clear();
-
-        // battlers are added to the partitioner
-        for (Battler battler : battlers) {
-            partitioner.addBattler(battler);
+        if (usePartitioning) {
+            // partitioner is cleared                
+            partitioner.clear();
+    
+            // battlers are added to the partitioner
+            for (Battler battler : battlers) {
+                partitioner.addBattler(battler);
+            }
         }
-        
+  
         // battlers are updated
         for (Battler battler : battlers) {
             battler.update();
         }
-   /*     
-
-
-        // partitioner visual is updated
-        partitioner.drawGridVisual();
-        */
     }
 }

@@ -13,6 +13,7 @@ public class Battler extends Actor {
     };
 
     private Type type;
+    private int visionRadius = 50;
 
     public static Type target(Type type) {
         switch (type) {
@@ -70,12 +71,15 @@ public class Battler extends Actor {
         setImage(sprite);
     }
     
-    private List<Battler> locateNearBattlers(){
-        // CHANGE ONCE GRID WORKS TO USE SPATIAL PARTITIONS
+    private List<Battler> locateNearBattlers() {
+        if (MyWorld.usePartitioning) {
+            List<Battler> nearBattlers = ((MyWorld)getWorld()).getPartitioner().query(this, visionRadius);
+            return nearBattlers;
+        }
+
         List <Battler> nearBattlers = new ArrayList<Battler>();
         nearBattlers = getNeighbours(50,true,Battler.class);
         return nearBattlers;
-    
     }
     
     private double getDist(Actor o){

@@ -1,4 +1,5 @@
 import java.util.*;
+import greenfoot.*;
 
 //Grid-based spatial partitioning
 public class Partitioner {
@@ -12,6 +13,10 @@ public class Partitioner {
         this.world = world;
         grid = new ArrayList[gridWidth][gridHeight];
         clear();
+        
+        if (MyWorld.usePartitioning) {
+            drawGridVisual();
+        }
     }
 
     public void clear() { 
@@ -38,17 +43,18 @@ public class Partitioner {
         int gridYMax = worldToGrid(worldY + radius, world.getHeight(), gridHeight);
         
         List<Battler> battlers = new ArrayList<>();
+        float sqrRadius = radius * radius;
         
         for (int x = gridXMin; x <= gridXMax; x++) {
             for (int y = gridYMin; y <= gridYMax; y++) {
                 if (!isOnGrid(x, gridWidth) || !isOnGrid(y, gridHeight)) continue;
                 
                 for (Battler battler : grid[x][y]) {
-                    if (battler == sourceBattler) continue;
+                    if (battler.getType() != sourceBattler.getTarget()) continue;
                     
                     int sqrDistance = sqrDistance(battler, sourceBattler);
                     
-                    if (sqrDistance <= radius * radius) {
+                    if (sqrDistance <= sqrRadius) {
                         battlers.add(battler);
                     }
                 }
@@ -80,7 +86,20 @@ public class Partitioner {
         return gridCoord;
     }
     
+
     public void drawGridVisual() {
-        world.getBackground().clear();
+        GreenfootImage background = world.getBackground();
+        background.setColor(Color.BLACK);
+        
+        int cellSizeX = world.getWidth() / gridWidth;
+        int cellSizeY = world.getHeight() / gridHeight;
+        
+        for (int x = 0; x < world.getWidth(); x += cellSizeX) {
+            background.drawLine(x, 0, x, world.getHeight());
+        }
+        
+        for (int y = 0; y < world.getHeight(); y += cellSizeY) {
+            background.drawLine(0, y, world.getWidth(), y);
+        }
     }
 }
