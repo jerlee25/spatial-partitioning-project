@@ -63,7 +63,12 @@ public class MyWorld extends World {
                 battlers.add(battler);
             }
         }
-
+        if (Greenfoot.isKeyDown("4")){
+            for (Battler battler : battlers) {
+                removeObject(battler);
+            }
+            battlers.clear();
+        }
         // partitioner is cleared
         partitioner.clear();
 
