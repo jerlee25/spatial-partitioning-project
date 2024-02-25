@@ -1,4 +1,5 @@
 import java.util.*;
+import greenfoot.*;
 
 //Grid-based spatial partitioning
 public class Partitioner {
@@ -12,6 +13,7 @@ public class Partitioner {
         this.world = world;
         grid = new ArrayList[gridWidth][gridHeight];
         clear();
+        drawGridVisual();
     }
 
     public void clear() { 
@@ -82,6 +84,18 @@ public class Partitioner {
     }
     
     public void drawGridVisual() {
-        world.getBackground().clear();
+        GreenfootImage background = world.getBackground();
+        background.setColor(Color.BLACK);
+        
+        int cellSizeX = world.getWidth() / gridWidth;
+        int cellSizeY = world.getHeight() / gridHeight;
+        
+        for (int x = 0; x < world.getWidth(); x += cellSizeX) {
+            background.drawLine(x, 0, x, world.getHeight());
+        }
+
+        for (int y = 0; y < world.getHeight(); y += cellSizeY) {
+            background.drawLine(0, y, world.getWidth(), y);
+        }
     }
 }

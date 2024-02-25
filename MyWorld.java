@@ -1,8 +1,7 @@
 import java.util.*;
-
 import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-public class MyWorld extends World {
+public class MyWorld extends World {    
     private Partitioner partitioner;
     private List<Battler> battlers;
 
@@ -11,8 +10,7 @@ public class MyWorld extends World {
     public GreenfootImage blue;
 
     public MyWorld() {
-        // for accuracy, make sure this is odd x odd
-        super(601, 401, 1);
+        super(600, 400, 1);
 
         // quadTree setup
         partitioner = new Partitioner(this);
@@ -67,7 +65,6 @@ public class MyWorld extends World {
         }
 
         // partitioner is cleared
-
         partitioner.clear();
 
         // battlers are added to the partitioner
