@@ -81,6 +81,24 @@ public class MyWorld extends World {
         for (Battler battler : battlers) {
             battler.update();
         }
+      /* for (Battler battler : battlers) {
+            if (battler.getType() == Battler.Type.RED){
+                battler.update();
+            }
+
+        }
+        for (Battler battler : battlers) {
+            if (battler.getType() == Battler.Type.BLUE){
+                battler.update();
+            }
+        }
+        for (Battler battler : battlers) {
+            if (battler.getType() == Battler.Type.GREEN){
+                battler.update();
+            }
+        }*/
+       
+         
 
         /*
          * 

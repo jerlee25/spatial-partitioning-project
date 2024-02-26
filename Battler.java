@@ -105,7 +105,8 @@ public class Battler extends Actor {
         if (battlers.size() > 0) {
             changeType(target(getTarget()));
         }
-
+        
+        
         Battler closestTarget = locate(getTarget());
         if (closestTarget != null) {
             turnTowards(closestTarget.getX(), closestTarget.getY());
@@ -125,6 +126,9 @@ public class Battler extends Actor {
             setRotation(270);
 
         move(5 + Greenfoot.getRandomNumber(5));
+        if (Greenfoot.isKeyDown("5")){
+           move(100);
+        }
 
     }
 }
