@@ -76,7 +76,7 @@ public class Battler extends Actor {
         // since battlers are often clustered, we often won't
         // need to check the whole radius. also here we can just
         // have the battler target a random one
-        List<Battler> nearBattlers = locateNearBattlers(10); 
+        List<Battler> nearBattlers = locateNearBattlers(10);
         if (nearBattlers.size() != 0) {
             return nearBattlers.get(Greenfoot.getRandomNumber(nearBattlers.size()));
 
@@ -105,15 +105,11 @@ public class Battler extends Actor {
         if (battlers.size() > 0) {
             changeType(target(getTarget()));
         }
-        
-        
+
         Battler closestTarget = locate(getTarget());
         if (closestTarget != null) {
             turnTowards(closestTarget.getX(), closestTarget.getY());
         }
-
-        // Introduce some randomness
-        turn(20 - Greenfoot.getRandomNumber(40));
 
         // Move away from edge
         if (getX() <= 15)
@@ -125,9 +121,12 @@ public class Battler extends Actor {
         if (getY() >= getWorld().getHeight() - 15)
             setRotation(270);
 
+        // Introduce some randomness
+        turn(45 - Greenfoot.getRandomNumber(90));
+
         move(5 + Greenfoot.getRandomNumber(5));
-        if (Greenfoot.isKeyDown("5")){
-           move(100);
+        if (Greenfoot.isKeyDown("5")) {
+            move(50 + Greenfoot.getRandomNumber(100));
         }
 
     }
