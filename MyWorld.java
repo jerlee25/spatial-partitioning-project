@@ -9,6 +9,8 @@ public class MyWorld extends World {
     public GreenfootImage green;
     public GreenfootImage blue;
 
+    private long timer;
+
     public MyWorld() {
         super(600, 400, 1);
 
@@ -31,6 +33,8 @@ public class MyWorld extends World {
         green.scale(5, 5);
         blue = new GreenfootImage("blue.png");
         blue.scale(5, 5);
+
+        timer = System.currentTimeMillis();
 
     }
 
@@ -81,15 +85,13 @@ public class MyWorld extends World {
         for (Battler battler : battlers) {
             battler.update();
         }
-      
-         for (Battler battler : battlers) {
+
+        for (Battler battler : battlers) {
             battler.update();
         }
         int num = Greenfoot.getRandomNumber(3);
-        
-        
+
         for (Battler battler : battlers) {
-    
             if (battler.getType() == Battler.Type.GREEN && num == 0){
                 battler.update();
             }
@@ -100,8 +102,7 @@ public class MyWorld extends World {
                 battler.update();
             }
         }
-       
-         
+
 
         /*
          * 
@@ -111,6 +112,11 @@ public class MyWorld extends World {
          */
 
         // shows battler count
-        showText("Battlers: " + battlers.size(), 60, 20);   
+        showText("Battlers: " + battlers.size(), 80, 20); 
+
+        // show tick rate
+        long time = System.currentTimeMillis();
+        showText("Updating every " + (time-timer) + " ms", 300, 20);
+        timer = time;
     }
 }

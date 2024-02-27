@@ -3,8 +3,8 @@ import greenfoot.*;
 
 //Grid-based spatial partitioning
 public class Partitioner {
-    public static final int gridWidth = 20;
-    public static final int gridHeight = 20;
+    public static final int gridWidth = 40;
+    public static final int gridHeight = 40;
     
     private MyWorld world;
     private List<Battler>[][] grid;

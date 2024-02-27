@@ -45,6 +45,7 @@ public class Battler extends Actor {
 
     protected void addedToWorld(World world) {
         changeType(type);
+        setRotation(Greenfoot.getRandomNumber(360));
     }
 
     public void changeType(Type type) {
@@ -81,7 +82,6 @@ public class Battler extends Actor {
             return nearBattlers.get(Greenfoot.getRandomNumber(nearBattlers.size()));
 
         }
-
         // check full range
         nearBattlers = locateNearBattlers(50);
         Battler closestBattler = null;
@@ -112,9 +112,9 @@ public class Battler extends Actor {
         }
 
         // Move away from edge
-        if (getX() <= 15)
+        if (getX() < 15)
             setRotation(0);
-        if (getY() <= 15)
+        if (getY() < 15)
             setRotation(90);
         if (getX() >= getWorld().getWidth() - 15)
             setRotation(180);
@@ -126,7 +126,8 @@ public class Battler extends Actor {
 
         move(5 + Greenfoot.getRandomNumber(5));
         if (Greenfoot.isKeyDown("5")) {
-            move(50 + Greenfoot.getRandomNumber(100));
+            // move(50 + Greenfoot.getRandomNumber(100));
+            setLocation(Greenfoot.getRandomNumber(600), Greenfoot.getRandomNumber(400));
         }
 
     }
