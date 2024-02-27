@@ -81,22 +81,25 @@ public class MyWorld extends World {
         for (Battler battler : battlers) {
             battler.update();
         }
-      /* for (Battler battler : battlers) {
-            if (battler.getType() == Battler.Type.RED){
-                battler.update();
-            }
-
+      
+         for (Battler battler : battlers) {
+            battler.update();
         }
+        int num = Greenfoot.getRandomNumber(3);
+        
+        
         for (Battler battler : battlers) {
-            if (battler.getType() == Battler.Type.BLUE){
+    
+            if (battler.getType() == Battler.Type.GREEN && num == 0){
+                battler.update();
+            }
+            else if (battler.getType() == Battler.Type.RED && num == 1){
+                battler.update();
+            }
+            else if (battler.getType() == Battler.Type.BLUE && num == 2){
                 battler.update();
             }
         }
-        for (Battler battler : battlers) {
-            if (battler.getType() == Battler.Type.GREEN){
-                battler.update();
-            }
-        }*/
        
          
 
