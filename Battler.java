@@ -84,14 +84,19 @@ public class Battler extends Actor {
         }
         // check full range
         nearBattlers = locateNearBattlers(50);
-        Battler closestBattler = null;
+        List<Battler> closestBattlers = new ArrayList<Battler>();
         double closestDist = 1000000;
         for (Battler nearBattler : nearBattlers) {
             if (getDist(nearBattler) < closestDist) {
-                closestBattler = nearBattler;
+                closestBattlers.clear();
+                closestDist = getDist(nearBattler);
+            }
+            if (getDist(nearBattler) == closestDist) {
+                closestBattlers.add(nearBattler);
             }
         }
-        return closestBattler;
+        if (closestBattlers.size() == 0) return null;
+        return closestBattlers.get(Greenfoot.getRandomNumber(closestBattlers.size()));
     }
 
     /**
